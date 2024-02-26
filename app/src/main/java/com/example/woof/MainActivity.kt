@@ -26,6 +26,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -55,6 +56,10 @@ import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 
 
 class MainActivity : ComponentActivity() {
@@ -102,9 +107,12 @@ fun WoofApp() {
  */
 @Composable
 fun DogItem(
+
     dog: Dog,
     modifier: Modifier = Modifier
-) { Card(modifier=modifier){
+) {
+    var expanded by remember { mutableStateOf(false) }
+    Card(modifier=modifier){
         Row(
             modifier = modifier
                 .fillMaxWidth()
@@ -112,12 +120,18 @@ fun DogItem(
         ) {
             DogIcon(dog.imageResourceId)
             DogInformation(dog.name, dog.age)
+            Spacer(modifier = Modifier.weight(1f))
+            DogItemButton(
+                expanded = expanded,
+                onClick = { /*TODO*/ }
+            )
         }
     }
 }
 
 @Composable
 private fun DogItemButton(
+
     expanded: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
